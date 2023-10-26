@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 
 function App() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    // Code to run when the component is mounted
+    // You can fetch data, set up subscriptions, or perform other tasks here
+axios('https://api.randomuser.me/?na=US&results5')
+.then((response) => { setUsers(response.data.results)
+})
+    // For example, you can fetch data and update the state:
+    // fetchUsersData().then(data => {
+    //   setUsers(data);
+    // });
+  }, []); 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      We'll be back!
     </div>
   );
 }

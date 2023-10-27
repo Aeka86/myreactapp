@@ -3,12 +3,12 @@ import axios from "axios";
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Code to run when the component is mounted
-    // You can fetch data, set up subscriptions, or perform other tasks here
-    axios("https://api.randomuser.me/?na=US&results5").then((response) => {
+    axios("https://api.randomuser.me/?na=US&results=5").then((response) => {
       setUsers(response.data.results);
+      setLoading(false);
     });
     // For example, you can fetch data and update the state:
     // fetchUsersData().then(data => {
@@ -16,7 +16,21 @@ function App() {
     // });
   }, []);
 
-  return <div className="App">We'll be back soon!</div>;
+  return (
+    <div className="App">
+      { loading ? (
+        <p>Loading...</p>
+      ) : (
+      users.map((user, index) => (
+        <div key={index}>
+          <p>Name: {user.name.first} {user.name.last}</p>
+          <p>{user.cell}</p>
+          <p>{user.email}</p>
+          <hr />
+        </div>
+      )))}
+    </div>
+  );
 }
 
 export default App;
